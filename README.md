@@ -3,6 +3,8 @@
 Data analytics for four public EV charging stations on the IIT Hyderabad campus, using 15-minute readings from 5G smart meters (March 2023).
 The pipeline turns raw meter exports into daily and hourly load profiles, time-of-day (TOD) tariff costs, charging-session estimates and short-term load forecasts.
 
+This repository covers the **data analytics** part of the work (Chapter 2 of the M.Tech thesis). The solar PV design, charging schedule and financial analysis in the thesis were done with simulation and spreadsheet tools and are not included here.
+
 This code accompanies:
 
 > **Adhik S**, V. Cherala, A. Ghosh and P. K. Yemula, "Smart Charging Station Infrastructure: A Data-Driven Approach to EV Charging Station Management," *IEEE National Power Systems Conference (NPSC)*, IIT Indore, 2024. [doi:10.1109/NPSC61626.2024.10986894](https://doi.org/10.1109/NPSC61626.2024.10986894)
@@ -17,15 +19,18 @@ This code accompanies:
 |---|---:|---:|---:|---:|---:|
 | Total energy (kWh) | 328.70 | 399.22 | 369.74 | 562.90 | **1,660.56** |
 | Mean daily energy (kWh) | 10.60 | 12.88 | 11.93 | 18.16 | 53.57 |
-| Share of energy in off-peak hours (23:00–07:00) | 30.4% | 28.7% | 33.4% | 32.2% | 31.3% |
-| Electricity cost, utility TOD tariff (INR) | 2,308.71 | 2,797.23 | 2,572.67 | – | – |
+| Share of energy in off-peak hours (22:00–07:00) | 32.9% | 32.1% | 36.4% | 36.4% | 34.7% |
+| Electricity cost, utility TOD tariff (INR) | 2,291.89 | 2,770.31 | 2,550.67 | 3,908.76 | 11,521.63 |
+| *Cost as published in the paper (INR)* | *2,331.81* | *2,819.69* | *2,595.51* | *3,987.40* | *11,734.41* |
 | Charging sessions (approx., ≥ 0.25 kWh) | 98 | 138 | 134 | – | – |
 
-Station 4 is included only through daily and hourly totals, because its raw meter file is not in this repository.
+Station 4 (meter IHM10050180) is included only through daily and hourly totals, because its raw meter file is not in this repository. Session counts are close to the thesis figures (96, 133, 123); the small differences come from how data gaps are handled.
+
+The published costs used slightly different tariff hours from the paper's own tariff table (see [Changes](#changes-from-the-original-thesis-notebooks)). With the original hours, this code reproduces the paper's Tables II and III exactly.
 
 **Main findings**
 
-- About **one third** of all charging energy falls in the peak and high-peak tariff hours (07:00–11:00 and 19:00–23:00). This is the share that load shifting or dynamic pricing could target.
+- About **28%** of all charging energy falls in the peak and high-peak tariff hours (07:00–11:00 and 19:00–22:00). This is the share that load shifting or TOD pricing could target.
 - Demand rises sharply at **11:00** at every station, and at three of the four stations again in the **evening (19:00–22:00)**.
 - Weekday and weekend daily energy are **not significantly different** at any of the four stations (Welch's t-test on daily totals, p > 0.15).
 - Stations 1 and 3 have **multi-day zero or near-zero energy periods** (24–28 March and 25–31 March). These look like outages or chargers taken out of service, and they affect monthly averages.
@@ -72,10 +77,12 @@ Without the raw meter files, the script still produces the all-station figures f
 
    | Band | Hours | Utility TOD (INR/kWh) | Retail scenario A | Retail scenario B |
    |---|---|---:|---:|---:|
-   | Off-peak | 23:00–07:00 | 6 | 12 | 10 |
+   | Off-peak | 22:00–07:00 | 6 | 12 | 10 |
    | Peak | 07:00–11:00 | 8 | 18 | 20 |
    | Mid-peak | 11:00–19:00 | 7 | 14 | 15 |
-   | High-peak | 19:00–23:00 | 8 | 20 | 25 |
+   | High-peak | 19:00–22:00 | 8 | 20 | 25 |
+
+   Hours and utility rates follow the tariff table in the thesis and paper. Retail scenario A matches the paper's EV TOD rates.
 
 3. **Statistics.** Daily summary statistics, weekday vs weekend (Welch's t-test on daily totals), holidays (8 and 22 March) vs other days, and days more than one standard deviation from the mean.
 4. **Sessions.** A charging session is a run of consecutive intervals with energy above zero, ending at an idle interval or a data gap over 20 minutes. Sessions below 0.25 kWh are dropped as noise.
@@ -94,7 +101,7 @@ This repository is a cleaned rebuild of the original analysis notebooks. The mon
 | Issue in original notebooks | Effect | Fix |
 |---|---|---|
 | Filtering on `Unit == "kWh"` kept both the import (`1-0:1.8.0`) and export (`1-0:2.8.0`) registers | Totals were correct (export is always 0), but half the rows were zero-valued export readings, which distorted per-interval averages, the t-test and the forecasting inputs | Filter on the import OBIS code only |
-| Hour 06:00–07:00 was not in any tariff rule and defaulted to high-peak | Electricity cost about 1% too high (e.g. Station 1: INR 2,331.81 → 2,308.71) | Hour 6 is off-peak. The old rule is kept as `ORIGINAL_NOTEBOOK_BANDS` for comparison |
+| The code's tariff hours differed from the published tariff table (off-peak 22:00–07:00, high-peak 19:00–22:00). The code used off-peak 23:00–06:00, so 06:00–07:00 and 22:00–23:00 were charged at high-peak rates | Published monthly cost about 1.8% too high (INR 11,734.41 → 11,521.63 for all four stations) | Bands follow the published table. The old bands are kept as `ORIGINAL_NOTEBOOK_BANDS`, and reproduce the paper's Tables II and III exactly |
 | Rolling-mean forecast features included the current hour | The reported R² ≈ 0.93 was inflated, because the model could see the value it was predicting | Rolling features use only past hours |
 | Weekday/weekend t-test run on individual 15-minute readings | Correlated samples overstate significance | Test on daily totals |
 | Station 1 used retail scenario A, Stations 2–4 used scenario B | Stations were not comparable | Both scenarios computed for every station |

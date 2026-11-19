@@ -1,4 +1,4 @@
 ,total_kwh,mean_daily_kwh,median_daily_kwh,std_daily_kwh,min_daily_kwh,max_daily_kwh,block_load_total_kwh,cost_utility_tod_inr,cost_utility_tod_original_bands_inr,cost_retail_tod_a_inr,cost_retail_tod_b_inr,weekday_weekend_weekday_days,weekday_weekend_weekend_days,weekday_weekend_weekday_mean_kwh,weekday_weekend_weekend_mean_kwh,weekday_weekend_t_stat,weekday_weekend_p_value,weekday_weekend_significant,holiday_days,holiday_mean_kwh,other_mean_kwh,sessions,mean_session_kwh,data_gaps_over_20min
-station_1,328.7,10.6,11.85,6.51,0.0,23.31,328.99,2308.71,2331.81,4922.38,5193.6,23,8,11.54,7.92,1.479,0.161,False,2,20.58,9.92,98,3.34,11
-station_2,399.22,12.88,12.15,4.86,5.62,22.26,399.71,2797.23,2819.69,5968.9,6350.65,23,8,12.61,13.64,-0.454,0.6595,False,2,16.28,12.64,138,2.85,13
-station_3,369.74,11.93,13.95,7.25,0.0,23.69,369.77,2572.67,2595.51,5516.68,5857.4,23,8,11.63,12.77,-0.338,0.7423,False,2,11.02,11.99,134,2.73,15
+station_1,328.7,10.6,11.85,6.51,0.0,23.31,328.99,2291.89,2331.81,4855.1,5067.45,23,8,11.54,7.92,1.479,0.161,False,2,20.58,9.92,98,3.34,11
+station_2,399.22,12.88,12.15,4.86,5.62,22.26,399.71,2770.31,2819.69,5861.22,6148.75,23,8,12.61,13.64,-0.454,0.6595,False,2,16.28,12.64,138,2.85,13
+station_3,369.74,11.93,13.95,7.25,0.0,23.69,369.77,2550.67,2595.51,5428.68,5692.4,23,8,11.63,12.77,-0.338,0.7423,False,2,11.02,11.99,134,2.73,15

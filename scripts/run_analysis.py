@@ -90,6 +90,16 @@ def main():
     ] + [analysis.weekday_vs_weekend(daily_dates.sum(axis=1))["p_value"]]
     overview.to_csv(config.TABLE_DIR / "all_stations_overview.csv")
 
+    # Utility TOD cost for all stations: corrected bands vs the bands used in the paper
+    rates = tariff.TARIFF_SCENARIOS["utility_tod"]
+    costs = pd.DataFrame({
+        "energy_kwh": hourly_all.sum(),
+        "cost_inr_corrected_bands": tariff.cost_from_hour_of_day(hourly_all, rates),
+        "cost_inr_paper_bands": tariff.cost_from_hour_of_day(hourly_all, rates, tariff.ORIGINAL_NOTEBOOK_BANDS),
+    })
+    costs.loc["total"] = costs.sum()
+    costs.round(2).to_csv(config.TABLE_DIR / "all_stations_tariff_cost.csv")
+
     # --- Full analysis for stations with raw meter data ---
     rows, forecasts = {}, []
     for station in config.STATION_METERS:

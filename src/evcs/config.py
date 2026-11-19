@@ -10,12 +10,15 @@ FIGURE_DIR = ROOT / "results" / "figures"
 TABLE_DIR = ROOT / "results" / "tables"
 
 # Each charging station is metered by one 5G smart meter.
-# Station 4's raw meter export is not included in this repository yet.
+# Station numbering follows the original analysis notebooks (and the station
+# totals in the NPSC paper, Table II). Note: the paper's meter table (Table I)
+# lists meters 175 and 174 in the opposite order.
+# Station 4 (meter 10050180) raw export is not included in this repository yet.
 STATION_METERS = {
     1: "IHM10050174",
     2: "IHM10050175",
     3: "IHM10050178",
-    4: None,
+    4: "IHM10050180",
 }
 
 TIMEZONE = "Asia/Kolkata"

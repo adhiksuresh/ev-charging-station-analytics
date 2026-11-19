@@ -32,9 +32,12 @@ def test_every_hour_has_exactly_one_band():
     assert set(tariff.TOD_BANDS.values()) == set(tariff.BAND_ORDER)
 
 
-def test_hour_six_is_off_peak():
+def test_bands_match_published_tariff_table():
     assert tariff.TOD_BANDS[6] == "off-peak"
+    assert tariff.TOD_BANDS[22] == "off-peak"
+    assert tariff.TOD_BANDS[21] == "high-peak"
     assert tariff.ORIGINAL_NOTEBOOK_BANDS[6] == "high-peak"
+    assert tariff.ORIGINAL_NOTEBOOK_BANDS[22] == "high-peak"
 
 
 def test_interval_energy_uses_import_register_only():

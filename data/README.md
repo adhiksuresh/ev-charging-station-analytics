@@ -16,7 +16,7 @@ Raw exports from the 5G smart meters at the IIT Hyderabad EV charging stations:
 | 1 | IHM10050174 | `data/raw/IHM10050174.csv` |
 | 2 | IHM10050175 | `data/raw/IHM10050175.csv` |
 | 3 | IHM10050178 | `data/raw/IHM10050178.csv` |
-| 4 | – | not available |
+| 4 | IHM10050180 | `data/raw/IHM10050180.csv` (not yet available) |
 
 Format: semicolon-separated, one row per register reading, with columns `Reading values`, `Profile`, `Reading time`, `OBIS code`, `Unit`, and others. The pipeline uses the `InstantaneousProfile` rows with OBIS code `1-0:1.8.0*255` (cumulative imported energy, kWh).
 

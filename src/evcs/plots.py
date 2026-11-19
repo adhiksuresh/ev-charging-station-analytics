@@ -53,7 +53,7 @@ def hour_of_day_all(hour_table: pd.DataFrame, path):
     fig, ax = plt.subplots(figsize=(10, 4.5))
     for col in hour_table.columns:
         ax.plot(hour_table.index, hour_table[col], marker="o", lw=1.5, label=col.replace("_kwh", "").replace("_", " ").title())
-    for start, end, colour in [(7, 11, BAND_COLOURS["peak"]), (19, 23, BAND_COLOURS["high-peak"])]:
+    for start, end, colour in [(7, 11, BAND_COLOURS["peak"]), (19, 22, BAND_COLOURS["high-peak"])]:
         ax.axvspan(start - 0.5, end - 0.5, color=colour, alpha=0.1)
     ax.set(
         title="Energy by hour of day, March 2023 (shaded: peak and high-peak tariff hours)",
