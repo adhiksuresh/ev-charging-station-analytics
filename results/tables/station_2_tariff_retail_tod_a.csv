@@ -1,0 +1,6 @@
+band,energy_kwh,cost_inr,energy_share_pct
+off-peak,114.75,1377.0,28.74
+peak,47.66,857.88,11.94
+mid-peak,167.03,2338.42,41.84
+high-peak,69.78,1395.6,17.48
+total,399.22,5968.9,100.0

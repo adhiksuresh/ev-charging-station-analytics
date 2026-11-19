@@ -1,0 +1,10 @@
+model,station,MAE,RMSE,R2
+persistence,1,0.1272,0.3731,0.2756
+seasonal_naive,1,0.1646,0.4713,-0.156
+xgboost,1,0.3126,0.3873,0.2195
+persistence,2,0.3415,0.5065,0.2142
+seasonal_naive,2,0.672,0.8371,-1.1467
+xgboost,2,0.3965,0.5231,0.1617
+persistence,3,0.0044,0.0143,0.1464
+seasonal_naive,3,0.0125,0.0228,-1.1717
+xgboost,3,0.3171,0.3813,-604.2516
