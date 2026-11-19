@@ -101,11 +101,15 @@ def main():
         forecasts.append(stats.pop("_forecast"))
         rows[f"station_{station}"] = stats
 
+    print("\nOverview (all stations):\n", overview, sep="")
+    if not rows:
+        print("\nNo raw meter files found in data/raw/. Only all-station outputs were updated.")
+        return
+
     detail = pd.DataFrame(rows).T
     detail.to_csv(config.TABLE_DIR / "station_detail.csv")
     pd.concat(forecasts).to_csv(config.TABLE_DIR / "forecast_metrics.csv")
 
-    print("\nOverview (all stations):\n", overview, sep="")
     print("\nDetail (stations with raw data):\n", detail.T, sep="")
     print("\nForecast metrics:\n", pd.concat(forecasts), sep="")
     (config.TABLE_DIR / "run_info.json").write_text(
