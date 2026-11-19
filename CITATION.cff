@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "EV Charging Station Analytics from 5G Smart-Meter Data"
+type: software
+version: 1.0.0
+license: MIT
+repository-code: "https://github.com/adhiksuresh/ev-charging-station-analytics"
+authors:
+  - family-names: Suresh
+    given-names: Adhik
+    orcid: "https://orcid.org/0009-0001-0517-6748"
+preferred-citation:
+  type: conference-paper
+  title: "Smart Charging Station Infrastructure: A Data-Driven Approach to EV Charging Station Management"
+  authors:
+    - family-names: Suresh
+      given-names: Adhik
+    - family-names: Cherala
+      given-names: V.
+    - family-names: Ghosh
+      given-names: A.
+    - family-names: Yemula
+      given-names: Pradeep Kumar
+  collection-title: "2024 IEEE National Power Systems Conference (NPSC)"
+  conference:
+    name: "IEEE National Power Systems Conference (NPSC)"
+    city: Indore
+    country: IN
+  year: 2024
+  doi: "10.1109/NPSC61626.2024.10986894"
