@@ -110,6 +110,18 @@ This repository is a cleaned rebuild of the original analysis notebooks. The mon
 
 If you use this code, please cite the NPSC 2024 paper above. GitHub's "Cite this repository" button uses [CITATION.cff](CITATION.cff).
 
+## M.Tech thesis
+
+The full thesis is in [`docs/MTech_thesis_IITH_2024.pdf`](docs/MTech_thesis_IITH_2024.pdf) (IIT Hyderabad, July 2024). It covers more than this repository's code:
+
+| Chapter | Content | In this repository? |
+|---|---|---|
+| 2. EV charging station data analytics | Smart-meter data processing, load profiles, tariff costs, sessions | Yes: `src/evcs/` reproduces this chapter |
+| 3. Integration of solar into the EV charging station | Design and simulation of a 30 kW grid-connected rooftop PV system | No (simulation and design tools) |
+| 4. EV charging station scheduling | Charging schedule, bill savings with solar, CO2 estimates | No (spreadsheet analysis) |
+
+The cost figures in the thesis use the original tariff hours. See "Changes from the original thesis notebooks" above for the small difference this makes.
+
 ## Acknowledgements
 
 Smart Grid Lab, Department of Electrical Engineering, IIT Hyderabad. Supervisor: Dr. P. K. Yemula.
