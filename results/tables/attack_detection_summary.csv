@@ -1,0 +1,17 @@
+attack,detector,precision,recall,f1,roc_auc,false_alarm_rate
+inflate,Time-slot z-score (baseline),0.732,0.436,0.529,0.761,0.006
+theft,Time-slot z-score (baseline),0.020,0.005,0.008,0.321,0.006
+replay,Time-slot z-score (baseline),0.240,0.033,0.057,0.614,0.006
+drift,Time-slot z-score (baseline),0.947,0.433,0.588,0.792,0.007
+inflate,Isolation Forest,0.602,0.512,0.521,0.913,0.013
+theft,Isolation Forest,0.143,0.014,0.024,0.801,0.002
+replay,Isolation Forest,0.206,0.015,0.027,0.718,0.002
+drift,Isolation Forest,0.884,0.259,0.386,0.890,0.007
+inflate,Local Outlier Factor,0.359,0.464,0.397,0.817,0.038
+theft,Local Outlier Factor,0.077,0.030,0.040,0.654,0.016
+replay,Local Outlier Factor,0.066,0.020,0.029,0.522,0.017
+drift,Local Outlier Factor,0.734,0.574,0.627,0.830,0.064
+inflate,One-Class SVM,0.322,0.565,0.401,0.770,0.044
+theft,One-Class SVM,0.037,0.008,0.013,0.313,0.002
+replay,One-Class SVM,0.054,0.005,0.009,0.418,0.003
+drift,One-Class SVM,0.686,0.596,0.630,0.738,0.078

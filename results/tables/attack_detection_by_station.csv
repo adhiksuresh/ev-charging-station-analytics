@@ -1,0 +1,65 @@
+station,attack,detector,precision,recall,f1,roc_auc,false_alarm_rate
+1,inflate,Time-slot z-score (baseline),0.726,0.621,0.664,0.846,0.004
+1,theft,Time-slot z-score (baseline),0.000,0.000,0.000,0.176,0.004
+1,replay,Time-slot z-score (baseline),0.378,0.066,0.112,0.770,0.005
+1,drift,Time-slot z-score (baseline),0.954,0.384,0.546,0.751,0.005
+1,inflate,Isolation Forest,0.445,0.783,0.561,0.979,0.021
+1,theft,Isolation Forest,0.140,0.035,0.056,0.929,0.003
+1,replay,Isolation Forest,0.359,0.041,0.072,0.862,0.003
+1,drift,Isolation Forest,0.849,0.233,0.358,0.906,0.011
+1,inflate,Local Outlier Factor,0.566,0.559,0.556,0.936,0.009
+1,theft,Local Outlier Factor,0.133,0.024,0.040,0.665,0.002
+1,replay,Local Outlier Factor,0.124,0.016,0.028,0.521,0.004
+1,drift,Local Outlier Factor,0.869,0.389,0.536,0.810,0.016
+1,inflate,One-Class SVM,0.294,0.783,0.426,0.861,0.038
+1,theft,One-Class SVM,0.080,0.023,0.036,0.212,0.003
+1,replay,One-Class SVM,0.150,0.017,0.030,0.369,0.004
+1,drift,One-Class SVM,0.642,0.509,0.562,0.630,0.081
+2,inflate,Time-slot z-score (baseline),0.643,0.440,0.522,0.786,0.014
+2,theft,Time-slot z-score (baseline),0.078,0.021,0.033,0.303,0.014
+2,replay,Time-slot z-score (baseline),0.127,0.031,0.050,0.583,0.015
+2,drift,Time-slot z-score (baseline),0.893,0.478,0.623,0.841,0.015
+2,inflate,Isolation Forest,0.665,0.484,0.558,0.887,0.014
+2,theft,Isolation Forest,0.133,0.008,0.016,0.747,0.002
+2,replay,Isolation Forest,0.000,0.000,0.000,0.607,0.001
+2,drift,Isolation Forest,0.833,0.155,0.254,0.882,0.007
+2,inflate,Local Outlier Factor,0.321,0.383,0.348,0.779,0.048
+2,theft,Local Outlier Factor,0.088,0.046,0.060,0.653,0.027
+2,replay,Local Outlier Factor,0.042,0.013,0.020,0.516,0.025
+2,drift,Local Outlier Factor,0.720,0.631,0.671,0.867,0.066
+2,inflate,One-Class SVM,0.381,0.532,0.442,0.751,0.052
+2,theft,One-Class SVM,0.000,0.000,0.000,0.392,0.002
+2,replay,One-Class SVM,0.000,0.000,0.000,0.562,0.002
+2,drift,One-Class SVM,0.776,0.611,0.682,0.840,0.047
+3,inflate,Time-slot z-score (baseline),0.683,0.207,0.315,0.605,0.002
+3,theft,Time-slot z-score (baseline),0.000,0.000,0.000,0.377,0.002
+3,replay,Time-slot z-score (baseline),0.276,0.024,0.044,0.550,0.003
+3,drift,Time-slot z-score (baseline),0.969,0.325,0.483,0.754,0.003
+3,inflate,Isolation Forest,0.475,0.311,0.373,0.864,0.010
+3,theft,Isolation Forest,0.200,0.008,0.016,0.741,0.001
+3,replay,Isolation Forest,0.267,0.014,0.026,0.837,0.002
+3,drift,Isolation Forest,0.916,0.278,0.418,0.892,0.006
+3,inflate,Local Outlier Factor,0.191,0.364,0.250,0.711,0.043
+3,theft,Local Outlier Factor,0.050,0.043,0.046,0.654,0.023
+3,replay,Local Outlier Factor,0.100,0.050,0.066,0.546,0.030
+3,drift,Local Outlier Factor,0.674,0.596,0.627,0.778,0.080
+3,inflate,One-Class SVM,0.263,0.328,0.289,0.641,0.026
+3,theft,One-Class SVM,0.067,0.008,0.015,0.299,0.002
+3,replay,One-Class SVM,0.067,0.004,0.007,0.277,0.004
+3,drift,One-Class SVM,0.678,0.550,0.596,0.667,0.076
+4,inflate,Time-slot z-score (baseline),0.877,0.476,0.616,0.806,0.004
+4,theft,Time-slot z-score (baseline),0.000,0.000,0.000,0.429,0.004
+4,replay,Time-slot z-score (baseline),0.180,0.013,0.024,0.552,0.004
+4,drift,Time-slot z-score (baseline),0.973,0.547,0.699,0.821,0.004
+4,inflate,Isolation Forest,0.825,0.472,0.593,0.921,0.005
+4,theft,Isolation Forest,0.100,0.004,0.009,0.787,0.000
+4,replay,Isolation Forest,0.200,0.006,0.011,0.567,0.001
+4,drift,Isolation Forest,0.938,0.367,0.515,0.879,0.006
+4,inflate,Local Outlier Factor,0.357,0.550,0.433,0.843,0.054
+4,theft,Local Outlier Factor,0.036,0.009,0.014,0.643,0.011
+4,replay,Local Outlier Factor,0.000,0.000,0.000,0.506,0.009
+4,drift,Local Outlier Factor,0.672,0.681,0.673,0.864,0.092
+4,inflate,One-Class SVM,0.351,0.617,0.446,0.826,0.062
+4,theft,One-Class SVM,0.000,0.000,0.000,0.349,0.001
+4,replay,One-Class SVM,0.000,0.000,0.000,0.462,0.001
+4,drift,One-Class SVM,0.650,0.714,0.678,0.818,0.106

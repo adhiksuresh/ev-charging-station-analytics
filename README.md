@@ -36,6 +36,52 @@ The published costs used slightly different tariff hours from the paper's own ta
 - Stations 1 and 3 have **multi-day zero or near-zero energy periods** (24–28 March and 25–31 March). These look like outages or chargers taken out of service, and they affect monthly averages.
 - Energy totals from the 15-minute interval method agree with the meter's own 30-minute block-load profile to within 0.5 kWh per station.
 
+## Extension (2026): can simple detectors spot manipulated meter readings?
+
+This part is **not** in the thesis or the paper. It is a later experiment on the same data: inject synthetic cyber-attacks into the meter readings and test whether standard unsupervised anomaly detectors catch them.
+
+**Short answer:** large changes to single readings and slow drifts are caught about half the time. Under-reporting (energy theft) and replayed genuine data are almost never caught. Doing better needs more than one meter's own readings.
+
+**Attacks** (`src/evcs/attacks.py`), each injected separately into the test period:
+
+| Attack | What it does |
+|---|---|
+| inflate | 10% of non-zero readings multiplied by 1.5–3 (over-billing) |
+| theft | 10% of non-zero readings multiplied by 0.1–0.5 (under-reporting) |
+| replay | 96 consecutive readings (one day) replaced by genuine readings from the training period |
+| drift | an offset growing by 0.005 kWh per reading added over two days (tampered or miscalibrated meter) |
+
+**Protocol** (`src/evcs/anomaly.py`). No information about the attacks is used to train or tune any detector.
+- Train on 1–14 March (clean). Set each detector's alarm threshold so that 1% of readings in a clean validation week (15–21 March) raise an alarm. Test on 22–31 March with attacks injected.
+- Nine features, using only current and past readings: energy, change from last reading, 1-hour and 4-hour rolling statistics, difference from the typical energy for that time of day, difference from the same time yesterday, and time of day.
+- Detectors: Isolation Forest, Local Outlier Factor, One-Class SVM, and a simple baseline (distance from the typical reading for that time slot).
+- All four stations, 5 random seeds each.
+
+**Recall** (share of attacked readings flagged), mean over stations and seeds:
+
+| Detector | inflate | theft | replay | drift |
+|---|---:|---:|---:|---:|
+| Time-slot z-score (baseline) | 0.44 | 0.01 | 0.03 | 0.43 |
+| Isolation Forest | 0.51 | 0.01 | 0.02 | 0.26 |
+| Local Outlier Factor | 0.46 | 0.03 | 0.02 | 0.57 |
+| One-Class SVM | **0.57** | 0.01 | 0.01 | **0.60** |
+
+Full numbers (precision, F1, ROC-AUC, false-alarm rate, per station) are in `results/tables/attack_detection_*.csv`.
+
+![Detection recall](results/figures/attack_detection_recall.png)
+
+**What this shows**
+- **The simple baseline is competitive.** On inflation and drift it is close to the machine-learning detectors, and it has the lowest false-alarm rate.
+- **Theft and replay are close to invisible** to any detector that only looks at one meter's own readings. Scaled-down charging still looks like normal partial charging, and replayed data *is* normal data. Catching these needs a second source, for example the charger's own logs, a feeder-level meter, or cross-checks between stations.
+- **False alarms rise on new data.** Thresholds set for 1% false alarms in the validation week gave 4–8% for LOF and One-Class SVM in the test week, because charging patterns shift from week to week (Stations 1 and 3 also have multi-day outages in the test period).
+- **Isolation Forest ranks theft better than its recall suggests** (ROC-AUC 0.80), but at a 1% false-alarm budget it still flags almost none of it.
+
+**A note on an earlier version.** My first notebook on this reported F1 = 0.79 for Isolation Forest. That number was not valid, for two reasons:
+1. The data step kept both the import *and* the export energy registers, so most "energy" values were jumps between the two registers (mean about 1,500 kWh per interval; the real maximum is 2.7 kWh).
+2. The detector was trained and scored on the same data, with its expected anomaly share set to exactly the true attack rate (10%).
+
+On the correct data, that original setup gives F1 = 0.65. The corrected protocol gives F1 = 0.52 (precision 0.84, recall 0.37) on the same kind of attack (`results/tables/attack_detection_protocol_comparison.csv`). The two are not directly comparable, since the original setup flags 10% of readings and the corrected one about 1%, but only the corrected one can be used on data where the attack rate is unknown.
+
 ## Repository structure
 
 ```
@@ -45,8 +91,11 @@ The published costs used slightly different tariff hours from the paper's own ta
 │   ├── tariff.py          # TOD tariff bands and cost calculation
 │   ├── analysis.py        # daily/hourly profiles, statistics, sessions
 │   ├── forecast.py        # hour-ahead forecasting with baselines
+│   ├── attacks.py         # synthetic cyber-attacks on meter readings (2026 extension)
+│   ├── anomaly.py         # features and anomaly detectors (2026 extension)
 │   └── plots.py           # figures
 ├── scripts/run_analysis.py  # regenerates everything in results/
+├── scripts/run_attack_detection.py  # attack-detection experiment (needs raw data)
 ├── notebooks/01_station1_walkthrough.ipynb
 ├── data/
 │   ├── raw/               # meter exports (not public, see data/README.md)
@@ -65,6 +114,7 @@ cd ev-charging-station-analytics
 pip install -r requirements.txt
 
 python scripts/run_analysis.py   # writes results/figures and results/tables
+python scripts/run_attack_detection.py   # attack-detection extension (needs raw data, ~20 s)
 pytest                           # runs the unit tests
 ```
 
